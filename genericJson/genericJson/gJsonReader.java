@@ -9,7 +9,7 @@ public class gJsonReader {
 	
 	/**
 	 * 
-	 * @param jsonObject 	- 	Json String
+	 * @param jsonObject 	- 	Json String or LinkedTreeMap (which are returned in an ArrayList from getArray())
 	 * @param path 			- 	path down which to navigate, example obj.employee.name
 	 * 								-if any of the nodes are Lists you want to iterate over, use getArray()
 	 * @return	String
@@ -34,7 +34,7 @@ public class gJsonReader {
 			is_str	=	true;
 		}
 		catch(ClassCastException e){
-			//System.out.println("not a string");
+			//	System.out.println("not a string");
 		}
 		
 		if (!is_str){
@@ -62,14 +62,13 @@ public class gJsonReader {
 	
 	/**
 	 * 
-	 * @param jsonObject 	- 	Json String
-	 * @param path 			- 	path down which to navigate, example obj.employee.name
-	 * 								-if any of the nodes are Lists you want to iterate over, use getArray()
-	 * @return				- 	String of the array which can be fed back into a getAtt() 
+	 * @param jsonObject 	- 	Json String or LinkedTreeMap (which are returned in an ArrayList from getArray())
+	 * @param path 			- 	path down which to navigate, example obj.business.employees
+	 * 								    
+	 * @return				- 	array of LinkedTreeMaps which can be fed back into a getAtt() 
 	 * 
-	 * Navigates down the path specified in the Json object, casting as Map/ArrayList combinations until reaching
-	 * the desired element.  If any node is actually a list of objects, use getArray() to navigate down to
-	 * that node, then iterate over the resulting ArrayList
+	 * Navigates down the path specified in the Json object, casting as Map/ArrayList combinations until
+	 * reaching  the desired element.  Last node must be an Array.
 	 */
 	
 	public static ArrayList getArray(Object jsonObject, String path){
