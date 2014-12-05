@@ -19,11 +19,27 @@ public class gJsonReader {
 	 * that node, then iterate over the resulting ArrayList, calling getAtt() for every object.
 	 */
 
-	public static String getAtt(String jsonObject, String path){
-		String[]	p	=	path.split("\\.");
+	public static String getAtt(Object jsonObject, String path){
+		String[]	p		=	path.split("\\.");
+		boolean		is_str	=	false;
+		int 		count 	= 	1;
+		Map 		m		=	null;
 		ArrayList 	a;
-		int count = 1;
-		Map m	=	(Map)	(new Gson()).fromJson(jsonObject,Map.class);
+		String		str;
+
+		
+		try{
+			str		=	(String) jsonObject;
+			m		=	(Map)	(new Gson()).fromJson(str,Map.class);
+			is_str	=	true;
+		}
+		catch(ClassCastException e){
+			//System.out.println("not a string");
+		}
+		
+		if (!is_str){
+			m		=	(Map)	jsonObject;
+		}
 		
 		while (count<p.length-1){
 			try{
@@ -56,12 +72,28 @@ public class gJsonReader {
 	 * that node, then iterate over the resulting ArrayList
 	 */
 	
-	public static String getArray(String jsonObject, String path){
+	public static ArrayList getArray(Object jsonObject, String path){
 		String[]	p		=	path.split("\\.");
-		int 		count	= 	1;
-		Gson 		g		=	new Gson();
-		Map			m		=	(Map)	g.fromJson(jsonObject,Map.class);
+		boolean		is_str	=	false;
+		int 		count 	= 	1;
+		Map 		m		=	null;
+		Gson		g		=	new Gson();
 		ArrayList 	a;
+		String		str;
+
+		
+		try{
+			str		=	(String) jsonObject;
+			m		=	(Map)	g.fromJson(str,Map.class);
+			is_str	=	true;
+		}
+		catch(ClassCastException e){
+			//System.out.println("not a string");
+		}
+		
+		if (!is_str){
+			m		=	(Map)	jsonObject;
+		}
 		
 		while (count<p.length-1){
 			try{
@@ -79,10 +111,9 @@ public class gJsonReader {
 			ArrayList	arr	=	(ArrayList) m.get(p[p.length-1]);
 			String 		j	=	(String) g.toJson(arr.get(0));
 						//j	=	j.substring(1,j.length()-1);
-			return	j;
+			return	arr;
 		}
 		else
-			return "{}";
-	}
-	
+			return new ArrayList();
+	}	
 }
