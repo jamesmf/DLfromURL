@@ -108,8 +108,9 @@ public class gJsonReader {
 		}
 		if ((ArrayList) m.get(p[p.length-1]) != null){
 			ArrayList	arr	=	(ArrayList) m.get(p[p.length-1]);
+			if (arr.size()==0)
+				return new ArrayList();
 			String 		j	=	(String) g.toJson(arr.get(0));
-						//j	=	j.substring(1,j.length()-1);
 			return	arr;
 		}
 		else
