@@ -1,7 +1,7 @@
 Java_tools
 =========
 
-genericJson - tools for dealing with Json in Java (using Gson)
+genericJson - tools for dealing with JSON in Java (using Gson).  Allows for arbitrary reference down some path A.b.c.d without knowing the entire schema by successively casting as LinkedTreeMaps
 
     -gJsonReader
     
